@@ -14,9 +14,12 @@ public class RigidBody {
 	}
 	
 	public void timestep(double dt){
-		// Advance position with one Euler-step
-		// x(t+dt) = x(t)+v(t)*dt
 		
+		// Advance velocity and position with one Euler-step
+		// v(t+dt) = v(t)+a*dt;
+		// x(t+dt) = x(t)+v(t)*dt
+				
+		this.velocity.plus(new Vector(0.d,-9.82).times(dt));
 		this.pos.plus(velocity.times(dt));
 	}
 
@@ -26,5 +29,12 @@ public class RigidBody {
 
 	public void setMass(double mass) {
 		this.mass = mass;
+	}
+	
+	public double getX(){
+		return this.pos.getX();
+	}
+	public double getY(){
+		return this.pos.getY();
 	}
 }

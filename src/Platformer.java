@@ -15,18 +15,12 @@ public class Platformer {
 	
 	// Game-state flag
 	private boolean running = true;
+	
+	// Keep tabs on bodies
 	private List<RigidBody> rigidBodies = new ArrayList<RigidBody>();
+	
 	// FPS-independet time stepping
 	private static long lastFrame;
-	private static long getTime() {
-		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
-	}
-	private static double getDelta() {
-		long currentTime = getTime();
-		double delta = (double) currentTime - (double) lastFrame;
-		lastFrame = getTime();
-		return delta;
-	}
 	
 	public void initOpenGL(String windowTitle, int width, int height)
 	{
@@ -70,6 +64,17 @@ public class Platformer {
 		}
 	}
 
+	private static long getTime() {
+		return (Sys.getTime()*1000) / Sys.getTimerResolution();
+	}
+	
+	private static double getDelta() {
+		long currentTime = getTime();
+		double delta = (double) currentTime - (double) lastFrame;
+		lastFrame = getTime();
+		return delta;
+	}
+	
 	public void initAndRun(String windowTitle, int width, int height)
 	{
 		initOpenGL(windowTitle,width,height);
@@ -81,7 +86,7 @@ public class Platformer {
 		// Make sure we get a delta for first loop
 		lastFrame = getTime();
 		
-		Circle test = new Circle(5,new Vector(10,10),new Vector(1,1),1);
+		Circle test = new Circle(5,new Vector(0,0),new Vector(40,100),1);
 		rigidBodies.add(test);
 		
 		// Here be game loop
@@ -117,7 +122,8 @@ public class Platformer {
 	}
 	
 	public void update(){
-		double dt = 1/getDelta();
+		double dt = getDelta()/100;
+		
 		for(RigidBody p : rigidBodies){
 			p.timestep(dt);
 		}
@@ -125,6 +131,21 @@ public class Platformer {
 	
 	public void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		GL11.glPushMatrix();
+		GL11.glColor3f(0.f,0.f,0.f);
+		for(RigidBody p : rigidBodies){
+			GL11.glTranslated(p.getX(), p.getY(),0);
+			GL11.glScalef(8, 8, 1);
+			GL11.glBegin(GL11.GL_TRIANGLE_FAN);
+			GL11.glVertex2d(0,0);
+			for(int i = 0; i <= 16; i++){
+			    double angle = Math.PI * 2 * i / 8;
+			    GL11.glVertex2f((float)Math.cos(angle), (float)Math.sin(angle));
+			}
+		}
+		
+		GL11.glEnd();
+		GL11.glPopMatrix();
 	}
 	 
 	public static void main(String[] args) {

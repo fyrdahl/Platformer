@@ -9,6 +9,11 @@ public class Vector {
 		this.y = y;
 	}
 	
+	public Vector(){
+		this.x = 0;
+		this.y = 0;
+	}
+	
 	// Dot product
 	public double dot(Vector that) {
 		return (this.x*that.getX() + this.y*that.getY());
@@ -40,7 +45,6 @@ public class Vector {
 		return tmp;
 	}
 	
-
 	// Getters/setters
 	public double getY() {
 		return y;
