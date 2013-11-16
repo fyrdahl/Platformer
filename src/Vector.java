@@ -29,6 +29,17 @@ public class Vector {
 		Vector tmp = new Vector(this.x-that.getX(),this.y-that.getY());
 		return tmp;
 	}
+	
+	public void plus(Vector that){
+		this.x+=that.getX();
+		this.y+=that.getY();
+	}
+	
+	public Vector times(double a){
+		Vector tmp = new Vector(this.x * a, this.y * a);
+		return tmp;
+	}
+	
 
 	// Getters/setters
 	public double getY() {

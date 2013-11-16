@@ -1,5 +1,10 @@
 import static org.lwjgl.opengl.GL11.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -10,6 +15,18 @@ public class Platformer {
 	
 	// Game-state flag
 	private boolean running = true;
+	private List<RigidBody> rigidBodies = new ArrayList<RigidBody>();
+	// FPS-independet time stepping
+	private static long lastFrame;
+	private static long getTime() {
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+	private static double getDelta() {
+		long currentTime = getTime();
+		double delta = (double) currentTime - (double) lastFrame;
+		lastFrame = getTime();
+		return delta;
+	}
 	
 	public void initOpenGL(String windowTitle, int width, int height)
 	{
@@ -61,6 +78,12 @@ public class Platformer {
  
 	public void run()
 	{
+		// Make sure we get a delta for first loop
+		lastFrame = getTime();
+		
+		Circle test = new Circle(5,new Vector(10,10),new Vector(1,1),1);
+		rigidBodies.add(test);
+		
 		// Here be game loop
 		while(running)
 		{
@@ -94,7 +117,10 @@ public class Platformer {
 	}
 	
 	public void update(){
-		//Take a guess
+		double dt = 1/getDelta();
+		for(RigidBody p : rigidBodies){
+			p.timestep(dt);
+		}
 	}
 	
 	public void render() {

@@ -7,6 +7,14 @@ public class Entity {
 	private int y;
 	private boolean isSolid; // Probably useful for collision detection
 	
+	// Constructor
+	public Entity(int x, int y, boolean solid){
+		this.x = x;
+		this.y = y;
+		this.isSolid = solid;
+	}
+
+	// Getters/setters
 	public int getX() {
 		return x;
 	}
