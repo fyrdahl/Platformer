@@ -65,7 +65,7 @@ public class Platformer {
 		// Here be game loop
 		while(running)
 		{
-			exitLogic(); // Are we exciting?
+			exitLogic(); // Are we exiting?
 			input(); // Fetch input
 			update(); // Updates in game logic goes here
 			render();
