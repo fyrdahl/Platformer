@@ -30,7 +30,6 @@ public class Platformer {
             GL11.glMatrixMode(GL11.GL_PROJECTION);
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
             GL11.glOrtho(0, Display.getDisplayMode().getWidth(), 0, Display.getDisplayMode().getHeight(), 1, -1);
-
             
             // Some more OpenGL settings
             GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -80,8 +79,9 @@ public class Platformer {
 	}
 	
 	public void exitLogic(){
-		if(Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
-         running=false;
+		if(Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
+				running=false;
+		}
 	}
 	
 	public void input(){
