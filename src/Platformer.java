@@ -98,7 +98,7 @@ public class Platformer {
 			render();
 			
 			Display.update(); // Tell OpenGL to update
-			Display.sync(60); // Keep dat frame rate constant
+			Display.sync(60);
 			
 		}
  
@@ -114,7 +114,7 @@ public class Platformer {
 	
 	public void input(){
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			// Draw a penis!
+			// Do a barrel roll!
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 			// Do a barrel roll!
